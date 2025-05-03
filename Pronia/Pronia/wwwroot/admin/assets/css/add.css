@@ -1,0 +1,69 @@
+﻿/* add.css */
+
+/* General Reset */
+body {
+    background-color: #f0fdf4;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Card Styling */
+.card {
+    background-color: #f5fdf6;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 128, 0, 0.1);
+    border: none;
+}
+
+/* Header Styling */
+.card-header {
+    background-color: #198754 !important;
+    color: white;
+    border-top-left-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
+}
+
+/* Form Inputs */
+input.form-control,
+textarea.form-control {
+    border-radius: 10px;
+    border: 1px solid #cfe3d3;
+    transition: border 0.3s;
+}
+
+    input.form-control:focus,
+    textarea.form-control:focus {
+        border-color: #198754;
+        box-shadow: 0 0 5px rgba(25, 135, 84, 0.5);
+    }
+
+/* Labels */
+label.form-label {
+    color: #198754;
+    font-weight: 600;
+}
+
+/* Submit Button */
+button[type="submit"] {
+    background-color: #198754;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+    button[type="submit"]:hover {
+        background-color: #157347;
+    }
+
+/* Table Styles (optional if you use on index too) */
+.table th {
+    background-color: #d1f2dc;
+    color: #14532d;
+}
+
+.btn {
+    border-radius: 8px;
+}
+
+/* Responsive Container Padding */
+.container {
+    padding-bottom: 40px;
+}
