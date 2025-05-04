@@ -2,17 +2,19 @@
 {
     public class Product : BaseModel
     {
-        private static int _id = 1;
-        public Product(string name, string description, decimal price)
+        public Product() { }
+
+        public Product(string name, string description, decimal price, string productImage)
         {
-            Id = _id++;
             Name = name;
             Description = description;
             Price = price;
+            ProductImage = productImage;
         }
 
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
+        public string ProductImage { get; set; }
     }
 }

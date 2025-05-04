@@ -4,27 +4,47 @@ namespace Pronia.Database.Repository
 {
     public class ProductRepository
     {
-        private static readonly List<Product> _products = new List<Product>();
-    
+        private ProniaDbContext _dbContext;
 
-    public List<Product> GetAll()
+        public ProductRepository()
         {
-            return _products;
+            _dbContext = new ProniaDbContext();
+        }
+
+        public List<Product> GetAll()
+        {
+            return _dbContext.Products.ToList();
         }
 
         public void Insert(Product product)
         {
-            _products.Add(product);
+            _dbContext.Products.Add(product);
+            _dbContext.SaveChanges();
         }
 
         public Product GetById(int id)
         {
-            return _products.FirstOrDefault(p => p.Id == id);
+            return _dbContext.Products.FirstOrDefault(p => p.Id == id);
         }
 
         public void RemoveById(int id)
         {
-            _products.RemoveAll(b => b.Id == id);
+            try
+            {
+                var product = GetById(id);
+                _dbContext.Products.Remove(product);
+                _dbContext.SaveChanges();
+            }
+            catch (NullReferenceException e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public void Update(Product product)
+        {
+            _dbContext.Products.Update(product);
+            _dbContext.SaveChanges();
         }
     }
 }

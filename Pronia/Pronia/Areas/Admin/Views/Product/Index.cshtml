@@ -28,7 +28,7 @@
 				<table class="table table-hover align-middle">
 					<thead class="table-success">
 						<tr>
-							<th>ID</th>
+							<th>Order</th>
 							<th>Title</th>
 							<th>Price</th>
 							<th>Description</th>
@@ -36,37 +36,33 @@
 						</tr>
 					</thead>
 					<tbody>
-						<!-- Example Pot -->
-						<tr>
-							<td>1</td>
-							<td>Clay Pot</td>
-							<td>₺50</td>
-							<td>Traditional handmade clay pot</td>
-							<td class="text-center">
-								<a asp-controller="product" asp-action="update" class="btn btn-warning btn-sm rounded-3 px-3 me-2">Update</a>
-								<a asp-controller="product" asp-action="delete" class="btn btn-danger btn-sm rounded-3 px-3">Delete</a>
-							</td>
-						</tr>
-
-						<!-- More pots can be dynamically added here -->
-					</tbody>
-					<tbody>
+						@{
+							int counter = 1;
+						}
 						@foreach (var item in Model)
 						{
 							<tr>
-								<td>@item.Id</td>
-								<td>@item.Name</td>
-								<td>₺@item.Price</td>
-								<td>@item.Description</td>
-								<td class ="text-center d-flex justify-content-center">
-									<a asp-controller="product" asp-action="update" asp-route-id="@item.Id" class="btn btn-warning btn-sm rounded-3 px-3 me-2">Update</a>
-									<form asp-controller="product" asp-action="delete" method="post">
-										<input type="hidden" name="id" value="@item.Id" />
-										<button type="submit" class="btn btn-danger btn-sm rounded-3 px-3">Delete</button>
-									</form>
-
+								<td>@counter</td>
+								<td>
+									<img src="~/admin/assets/images/website-images/@item.ProductImage"
+									alt="Pot Image"
+									style="width: 60px; height: auto; border-radius: 8px; margin-right: 10px;">
+									@item.Name
 								</td>
+								<td>$@item.Price</td>
+								<td>@item.Description</td>
+								<td class="text-center">
+									<div class="d-flex justify-content-center gap-2">
+										<a asp-controller="product" asp-action="update" asp-route-id="@item.Id" class="btn btn-warning btn-sm rounded-3 px-3">Update</a>
+										<form asp-controller="product" asp-action="delete" method="post">
+											<input type="hidden" name="id" value="@item.Id" />
+											<button type="submit" class="btn btn-danger btn-sm rounded-3 px-3">Delete</button>
+										</form>
+									</div>
+								</td>
+
 							</tr>
+							counter++;
 						}
 					</tbody>
 				</table>

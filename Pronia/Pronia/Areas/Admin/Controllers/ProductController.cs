@@ -17,7 +17,7 @@ namespace Pronia.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var products = _productRepository.GetAll();
+            var products = _productRepository.GetAll().OrderBy(p => p.Id).ToList();
             var result = View(products);
             return result;
         }
@@ -29,9 +29,9 @@ namespace Pronia.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(string name, decimal price, string description)
+        public IActionResult Add(string name, decimal price, string description, string productImage)
         {
-            Product product = new Product(name, description, price);
+            Product product = new Product(name, description, price, productImage);
             _productRepository.Insert(product);
             return RedirectToAction(nameof(Index));
         }
@@ -47,7 +47,7 @@ namespace Pronia.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(int id, string name, decimal price, string description)
+        public IActionResult Update(int id, string name, decimal price, string description, string productImage)
         {
             var product = _productRepository.GetById(id);
 
@@ -56,6 +56,9 @@ namespace Pronia.Areas.Admin.Controllers
             product.Name = name;
             product.Price = price;
             product.Description = description;
+            product.ProductImage = productImage;
+
+            _productRepository.Update(product);
 
             return RedirectToAction(nameof(Index));
         }
