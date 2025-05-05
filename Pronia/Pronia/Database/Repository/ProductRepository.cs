@@ -1,4 +1,5 @@
-﻿using Pronia.Database.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Pronia.Database.Models;
 
 namespace Pronia.Database.Repository
 {
@@ -16,10 +17,10 @@ namespace Pronia.Database.Repository
             return _dbContext.Products.ToList();
         }
 
-        public void Insert(Product product)
+        public async Task Insert(Product product)
         {
-            _dbContext.Products.Add(product);
-            _dbContext.SaveChanges();
+            await _dbContext.Products.AddAsync(product);
+            await _dbContext.SaveChangesAsync();
         }
 
         public Product GetById(int id)

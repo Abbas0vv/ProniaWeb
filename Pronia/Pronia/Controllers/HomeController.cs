@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Pronia.Database.Repository;
+using Pronia.ViewModels.Home;
 
 namespace Pronia.Controllers
 {
@@ -15,8 +16,12 @@ namespace Pronia.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var products = _productRepository.GetAll().OrderBy(p => p.Id).ToList();
-            var result = View(products);
+            HomeViewModel model = new HomeViewModel
+            {
+                Products = _productRepository.GetAll().OrderBy(p => p.Id).ToList()
+            };
+
+            var result = View(model);
             return result;
         }
     }

@@ -14,4 +14,5 @@ public class ProniaDbContext : DbContext
     }
 
     public DbSet<Product> Products { get; set; }
+    public DbSet<SlideBanner> SlideBanners { get; set; }
 }

@@ -1,5 +1,4 @@
-﻿@using Pronia.Database.Models
-@model List<Product>
+﻿@model HomeViewModel
 
 <!-- Begin Slider Area -->
 <div class="slider-area">
@@ -8,7 +7,7 @@
         <div class="swiper-wrapper">
             <div class="swiper-slide animation-style-01">
                 <div class="slide-inner style-1 bg-height"
-                     data-bg-image="~/client/assets/images/slider/bg/1-1.jpg">
+                data-bg-image="~/client/assets/images/slider/bg/1-1.jpg">
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-6 order-2 order-lg-1 align-self-center">
@@ -20,7 +19,7 @@
                                     </p>
                                     <div class="btn-wrap">
                                         <a class="btn btn-custom-size xl-size btn-pronia-primary"
-                                           href="shop.html">Discover Now</a>
+                                        href="shop.html">Discover Now</a>
                                     </div>
                                 </div>
                             </div>
@@ -29,7 +28,7 @@
                                     <div class="scene fill">
                                         <div class="expand-width" data-depth="0.2">
                                             <img src="~/client/assets/images/website-images//1-1-524x617.png"
-                                                 alt="Inner Image" />
+                                            alt="Inner Image" />
                                         </div>
                                     </div>
                                 </div>
@@ -40,7 +39,7 @@
             </div>
             <div class="swiper-slide animation-style-01">
                 <div class="slide-inner style-1 bg-height"
-                     data-bg-image="~/client/assets/images/slider/bg/1-1.jpg">
+                data-bg-image="~/client/assets/images/slider/bg/1-1.jpg">
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-6 order-2 order-lg-1 align-self-center">
@@ -52,7 +51,7 @@
                                     </p>
                                     <div class="btn-wrap">
                                         <a class="btn btn-custom-size xl-size btn-pronia-primary"
-                                           href="shop.html">Discover Now</a>
+                                        href="shop.html">Discover Now</a>
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +60,7 @@
                                     <div class="scene fill">
                                         <div class="expand-width" data-depth="0.2">
                                             <img src="~/client/assets/images/website-images//1-2-524x617.png"
-                                                 alt="Inner Image" />
+                                            alt="Inner Image" />
                                         </div>
                                     </div>
                                 </div>
@@ -89,7 +88,7 @@
                     <div class="shipping-item">
                         <div class="shipping-img">
                             <img src="~/client/assets/images/website-images//car.png"
-                                 alt="Shipping Icon" />
+                            alt="Shipping Icon" />
                         </div>
                         <div class="shipping-content">
                             <h2 class="title">Free Shipping</h2>
@@ -101,7 +100,7 @@
                     <div class="shipping-item">
                         <div class="shipping-img">
                             <img src="~/client/assets/images/website-images//card.png"
-                                 alt="Shipping Icon" />
+                            alt="Shipping Icon" />
                         </div>
                         <div class="shipping-content">
                             <h2 class="title">Safe Payment</h2>
@@ -113,7 +112,7 @@
                     <div class="shipping-item">
                         <div class="shipping-img">
                             <img src="~/client/assets/images/website-images//service.png"
-                                 alt="Shipping Icon" />
+                            alt="Shipping Icon" />
                         </div>
                         <div class="shipping-content">
                             <h2 class="title">Best Services</h2>
@@ -135,47 +134,47 @@
         <div class="row">
             <div class="col-lg-12">
                 <ul class="nav product-tab-nav tab-style-1"
-                    id="myTab"
-                    role="tablist">
+                id="myTab"
+                role="tablist">
                     <li class="nav-item" role="presentation">
                         <a class="active"
-                           id="featured-tab"
-                           data-bs-toggle="tab"
-                           href="#featured"
-                           role="tab"
-                           aria-controls="featured"
-                           aria-selected="true">
+                        id="featured-tab"
+                        data-bs-toggle="tab"
+                        href="#featured"
+                        role="tab"
+                        aria-controls="featured"
+                        aria-selected="true">
                             Featured
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a id="bestseller-tab"
-                           data-bs-toggle="tab"
-                           href="#bestseller"
-                           role="tab"
-                           aria-controls="bestseller"
-                           aria-selected="false">
+                        data-bs-toggle="tab"
+                        href="#bestseller"
+                        role="tab"
+                        aria-controls="bestseller"
+                        aria-selected="false">
                             Bestseller
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a id="latest-tab"
-                           data-bs-toggle="tab"
-                           href="#latest"
-                           role="tab"
-                           aria-controls="latest"
-                           aria-selected="false">
+                        data-bs-toggle="tab"
+                        href="#latest"
+                        role="tab"
+                        aria-controls="latest"
+                        aria-selected="false">
                             Latest
                         </a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active"
-                         id="featured"
-                         role="tabpanel"
-                         aria-labelledby="featured-tab">
+                    id="featured"
+                    role="tabpanel"
+                    aria-labelledby="featured-tab">
                         <div class="product-item-wrap row">
-                            @foreach (var item in Model)
+                            @foreach (var item in Model.Products)
                             {
                                 <div class="col-xl-3 col-md-4 col-sm-6">
                                 <div class="product-item">
