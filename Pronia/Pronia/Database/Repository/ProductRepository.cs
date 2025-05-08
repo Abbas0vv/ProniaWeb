@@ -14,7 +14,7 @@ namespace Pronia.Database.Repository
 
         public List<Product> GetAll()
         {
-            return _dbContext.Products.ToList();
+            return _dbContext.Products.OrderBy(p => p.Id).ToList();
         }
 
         public async Task Insert(Product product)

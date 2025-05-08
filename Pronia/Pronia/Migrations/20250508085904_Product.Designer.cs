@@ -11,7 +11,7 @@ using Pronia.Database;
 namespace Pronia.Migrations
 {
     [DbContext(typeof(ProniaDbContext))]
-    [Migration("20250504021052_Product")]
+    [Migration("20250508085904_Product")]
     partial class Product
     {
         /// <inheritdoc />
@@ -36,6 +36,9 @@ namespace Pronia.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -43,13 +46,34 @@ namespace Pronia.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
-                    b.Property<string>("ProductImage")
+                    b.HasKey("Id");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Pronia.Database.Models.SlideBanner", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Offer")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("SlideBanners");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,5 +1,4 @@
 ﻿using Pronia.Database.Models;
-
 namespace Pronia.ViewModels.Home;
 
 public class HomeViewModel

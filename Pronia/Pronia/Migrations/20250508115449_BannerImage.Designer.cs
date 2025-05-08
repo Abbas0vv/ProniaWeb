@@ -11,8 +11,8 @@ using Pronia.Database;
 namespace Pronia.Migrations
 {
     [DbContext(typeof(ProniaDbContext))]
-    [Migration("20250505185108_SlideBanner")]
-    partial class SlideBanner
+    [Migration("20250508115449_BannerImage")]
+    partial class BannerImage
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,16 +36,15 @@ namespace Pronia.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
-
-                    b.Property<string>("ProductImage")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -64,8 +63,10 @@ namespace Pronia.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("text");
+
                     b.Property<string>("Offer")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Title")

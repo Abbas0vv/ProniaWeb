@@ -21,42 +21,32 @@
                 <h3 class="mb-0">Update The Pot</h3>
             </div>
             <div class="card-body">
-                <form asp-controller="product" asp-action="update" method="post">
+                <form asp-controller="product" asp-action="update" method="post" enctype="multipart/form-data">
                     <!-- Title -->
                     <div class="mb-3">
-                        <label for="title" class="form-label text-success fw-bold">Title</label>
-                        <input type="text" class="form-control rounded-3" name="name" id="title" placeholder="Enter pot name" value=@Model.Name>
+                        <label asp-for="Name" class="form-label text-success fw-bold">Title</label>
+                        <input class="form-control rounded-3" asp-for="Name" value=@Model.Name>
+                        <span asp-for="Name" asp-validation-for="Name" class="text-danger"></span>
                     </div>
 
                     <!-- Price -->
                     <div class="mb-3">
-                        <label for="price" class="form-label text-success fw-bold">Price</label>
-                        <input type="number" class="form-control rounded-3" name="price" id="price" placeholder="$" value=@Model.Price>
+                        <label asp-for="Price" class="form-label text-success fw-bold">Price</label>
+                        <input class="form-control rounded-3" asp-for="Price" value=@Model.Price>
+                        <span asp-for="Price" asp-validation-for="Price" class="text-danger"></span>
                     </div>
 
                     <!-- Description -->
                     <div class="mb-3">
-                        <label for="description" class="form-label text-success fw-bold">Description</label>
-                        <textarea class="form-control rounded-3" id="description" name="description" rows="4" placeholder="Information about the pot">@Model.Description</textarea>
+                        <label asp-for="Description" class="form-label text-success fw-bold">Description</label>
+                        <textarea class="form-control rounded-3" asp-for="Description" rows="4" >@Model.Description</textarea>
+                        <span asp-for="Description" asp-validation-for="Description" class="text-danger"></span>
                     </div>
                     <!-- Image Selection -->
-                    @{
-                        string[] images = new[] { "1-1-270x300.jpg", "1-2-270x300.jpg", "1-3-270x300.jpg", "1-4-270x300.jpg", "1-5-270x300.jpg" };
-                    }
-
                     <div class="mb-3">
-                        <label class="form-label text-success fw-bold">Select Image</label>
-                        <div class="d-flex flex-wrap gap-3">
-                            @foreach (var image in images)
-                            {
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="productImage" id="img@image" value="@image" @(Model.ProductImage == image ? "checked" : "")>
-                                    <label class="form-check-label" for="img@image">
-                                        <img src="~/admin/assets/images/website-images/@image" alt="Pot Image" width="100" class="border rounded-3">
-                                    </label>
-                                </div>
-                            }
-                        </div>
+                        <label asp-for="File" class="form-label text-success fw-bold">Image</label>
+                        <input type="File" class="form-control rounded-3" asp-for="File" id="File" value="@Model.ImageUrl"/>
+                        <span asp-for="File" asp-validation-for="File" class="text-danger"></span>
                     </div>
 
                     <!-- Submit Button -->

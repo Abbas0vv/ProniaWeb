@@ -1,20 +1,19 @@
-﻿namespace Pronia.Database.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Pronia.Database.Models
 {
     public class Product : BaseModel
     {
-        public Product() { }
-
-        public Product(string name, string description, decimal price, string productImage)
-        {
-            Name = name;
-            Description = description;
-            Price = price;
-            ProductImage = productImage;
-        }
-
+        [MinLength(3)]
         public string Name { get; set; }
+
+        [MinLength(5)]
         public string Description { get; set; }
         public decimal Price { get; set; }
-        public string ProductImage { get; set; }
+        public string? ImageUrl { get; set; }
+
+        [NotMapped]
+        public IFormFile? File { get; set; }
     }
 }

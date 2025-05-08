@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Pronia.Database.Models;
 using Pronia.Database.Repository;
+using Pronia.Helpers.Extentions;
+using Pronia.Database.Models;
+
 
 namespace Pronia.Areas.Admin.Controllers;
 
@@ -8,10 +10,12 @@ namespace Pronia.Areas.Admin.Controllers;
 public class SlideBannerController : Controller
 {
     private readonly SlideBannerRepository _slideBannerRepository;
-
-    public SlideBannerController()
+    private readonly IWebHostEnvironment _webHostEnvironment;
+    private const string FOLDER_NAME = "Upload/SlideBanner";
+    public SlideBannerController(IWebHostEnvironment webHostEnvironment)
     {
         _slideBannerRepository = new SlideBannerRepository();
+        _webHostEnvironment = webHostEnvironment;
     }
 
     [HttpGet]
@@ -29,9 +33,27 @@ public class SlideBannerController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Add(string title, string description, string offer)
+    public async Task<IActionResult> Add(SlideBanner slideBanner)
     {
-        SlideBanner slideBanner = new SlideBanner(title, description, offer);
+        if (!ModelState.IsValid) return View(slideBanner);
+        if (slideBanner.File is null)
+        {
+            ModelState.AddModelError("File", "Please upload an image.");
+            return View(slideBanner);
+        }
+        if (!slideBanner.File.ContentType.Contains("image"))
+        {
+            ModelState.AddModelError("File", "The uploaded file must be an image.");
+            return View(slideBanner);
+        }
+        if (slideBanner.File.Length > 2097152)
+        {
+            ModelState.AddModelError("File", "The uploaded file size must not exceed 2 MB.");
+            return View(slideBanner);
+        }
+
+        slideBanner.ImageUrl = slideBanner.File.CreateFile(_webHostEnvironment.WebRootPath, FOLDER_NAME);
+
         await _slideBannerRepository.Insert(slideBanner);
         return RedirectToAction(nameof(Index));
     }
@@ -39,24 +61,39 @@ public class SlideBannerController : Controller
     [HttpGet]
     public IActionResult Update(int id)
     {
-        var slieBanner = _slideBannerRepository.GetById(id);
+        var slideBanner = _slideBannerRepository.GetById(id);
 
-        if (slieBanner is null) return RedirectToAction(nameof(NotFound));
+        if (slideBanner is null) return RedirectToAction(nameof(NotFound));
 
-        return View(slieBanner);
+        return View(slideBanner);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Update(int id, string title, string description, string offer)
+    public async Task<IActionResult> Update(SlideBanner slideBanner)
     {
-        var slideBanner = _slideBannerRepository.GetById(id);
+        var existSlideBanner = _slideBannerRepository.GetById(slideBanner.Id);
         if (slideBanner is null) return RedirectToAction(nameof(NotFound));
 
-        slideBanner.Title = title;
-        slideBanner.Description = description;
-        slideBanner.Offer = offer;
+        existSlideBanner.Title = slideBanner.Title;
+        existSlideBanner.Description = slideBanner.Description;
+        existSlideBanner.Offer = slideBanner.Offer;
 
-        _slideBannerRepository.Update(slideBanner);
+        if (!slideBanner.File.ContentType.Contains("image"))
+        {
+            ModelState.AddModelError("File", "The uploaded file must be an image.");
+            return View(slideBanner);
+        }
+        if (slideBanner.File.Length > 2097152)
+        {
+            ModelState.AddModelError("File", "The uploaded file size must not exceed 2 MB.");
+            return View(slideBanner);
+        }
+        FileExtention.RemoveFile(_webHostEnvironment.WebRootPath, FOLDER_NAME, existSlideBanner.ImageUrl);
+
+        var newImageUrl = slideBanner.File.CreateFile(_webHostEnvironment.WebRootPath, FOLDER_NAME);
+        existSlideBanner.ImageUrl = newImageUrl;
+
+        _slideBannerRepository.Update(existSlideBanner);
         return RedirectToAction(nameof(Index));
     }
     [HttpPost]
@@ -66,6 +103,7 @@ public class SlideBannerController : Controller
 
         if (slideBanner is null) return RedirectToAction(nameof(NotFound));
 
+        FileExtention.RemoveFile(_webHostEnvironment.WebRootPath, FOLDER_NAME, slideBanner.ImageUrl);
         _slideBannerRepository.RemoveById(id);
         return RedirectToAction(nameof(Index));
     }
