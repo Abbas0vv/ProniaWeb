@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Pronia.Database.Models
 {
-    public class SlideBanner : BaseModel
+    public class SlideBanner : BaseEntity
     {
         [MinLength(3)]
         public string Title { get; set; }

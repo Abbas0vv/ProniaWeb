@@ -1,18 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Pronia.Database.Models;
 
 namespace Pronia.Database;
 
-public class ProniaDbContext : DbContext
+public class ProniaDbContext : IdentityDbContext<AppUser>
 {
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        var connectionString = "Server=localhost;Port=5432;Database=Pronia;User Id=postgres;Password=admin;";
-        optionsBuilder.UseNpgsql(connectionString);
+    public ProniaDbContext(DbContextOptions<ProniaDbContext> options) : base(options) { }
 
-        base.OnConfiguring(optionsBuilder);
-    }
 
     public DbSet<Product> Products { get; set; }
     public DbSet<SlideBanner> SlideBanners { get; set; }
+    public DbSet<Category> Categories { get; set; }
 }

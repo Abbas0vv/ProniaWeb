@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Pronia.Database.Models;
 using Pronia.Database.Repository;
 using Pronia.Helpers.Extentions;
@@ -9,14 +10,20 @@ namespace Pronia.Areas.Admin.Controllers
     public class ProductController : Controller
     {
         private readonly ProductRepository _productRepository;
+        private readonly CategoryRepository _categoryRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private const string FOLDER_NAME = "Upload/Product";
 
-        public ProductController(IWebHostEnvironment environment)
+        public ProductController(
+            IWebHostEnvironment environment,
+            ProductRepository productRepository,
+            CategoryRepository categoryRepository)
         {
-            _productRepository = new ProductRepository();
+            _productRepository = productRepository;
+            _categoryRepository = categoryRepository;
             _webHostEnvironment = environment;
         }
+
 
         #region Index
         [HttpGet]
@@ -55,6 +62,7 @@ namespace Pronia.Areas.Admin.Controllers
                 ModelState.AddModelError("File", "The uploaded file size must not exceed 2 MB.");
                 return View(product);
             }
+            ViewBag.Categories = _categoryRepository.GetAll();
 
             product.ImageUrl = product.File.CreateFile(_webHostEnvironment.WebRootPath, FOLDER_NAME);
 

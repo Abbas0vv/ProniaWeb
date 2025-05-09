@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Pronia.Database.Models
 {
-    public class Product : BaseModel
+    public class Product : BaseEntity
     {
         [MinLength(3)]
         public string Name { get; set; }
@@ -15,5 +15,8 @@ namespace Pronia.Database.Models
 
         [NotMapped]
         public IFormFile? File { get; set; }
+
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
     }
 }

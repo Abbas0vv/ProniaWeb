@@ -7,9 +7,9 @@ namespace Pronia.Database.Repository
     {
         private ProniaDbContext _dbContext;
 
-        public ProductRepository()
+        public ProductRepository(ProniaDbContext dbContext)
         {
-            _dbContext = new ProniaDbContext();
+            _dbContext = dbContext;
         }
 
         public List<Product> GetAll()

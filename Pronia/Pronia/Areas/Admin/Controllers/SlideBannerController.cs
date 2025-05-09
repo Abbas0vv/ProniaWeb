@@ -2,8 +2,6 @@
 using Pronia.Database.Repository;
 using Pronia.Helpers.Extentions;
 using Pronia.Database.Models;
-
-
 namespace Pronia.Areas.Admin.Controllers;
 
 [Area("Admin")]
@@ -12,9 +10,9 @@ public class SlideBannerController : Controller
     private readonly SlideBannerRepository _slideBannerRepository;
     private readonly IWebHostEnvironment _webHostEnvironment;
     private const string FOLDER_NAME = "Upload/SlideBanner";
-    public SlideBannerController(IWebHostEnvironment webHostEnvironment)
+    public SlideBannerController(IWebHostEnvironment webHostEnvironment, SlideBannerRepository slideBannerRepository)
     {
-        _slideBannerRepository = new SlideBannerRepository();
+        _slideBannerRepository = slideBannerRepository;
         _webHostEnvironment = webHostEnvironment;
     }
 

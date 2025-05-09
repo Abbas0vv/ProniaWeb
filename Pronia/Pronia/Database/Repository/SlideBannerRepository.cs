@@ -6,9 +6,9 @@ namespace Pronia.Database.Repository
     {
         private ProniaDbContext _dbContext;
 
-        public SlideBannerRepository()
+        public SlideBannerRepository(ProniaDbContext dbContext)
         {
-            _dbContext = new ProniaDbContext();
+            _dbContext = dbContext;
         }
         public List<SlideBanner> GetAll()
         {
