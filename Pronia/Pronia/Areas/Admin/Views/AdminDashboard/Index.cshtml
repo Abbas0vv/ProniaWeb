@@ -15,7 +15,7 @@
                 <h4 class="mb-4">🌿 Pronia Admin</h4>
                 <ul class="nav flex-column gap-2">
                     <li class="nav-item">
-                        <a asp-controller="Dashboard" asp-action="Index" class="nav-link text-white">🏠 Dashboard Home</a>
+                        <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link text-white">🏠 Go to Main Page</a>
                     </li>
                     <li class="nav-item">
                         <a asp-controller="Product" asp-action="Index" class="nav-link text-white">🪴 Product List</a>
@@ -40,6 +40,15 @@
             <div class="col-md-9 col-lg-10 p-5">
                 <h2 class="mb-4 text-success">Welcome to Admin Dashboard</h2>
                 <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card shadow-sm border-0 rounded-4">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">Home Page</h5>
+                                <p class="card-text">Return to Home Page</p>
+                                <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-success btn-sm">Go to Main Page</a>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-md-4">
                         <div class="card shadow-sm border-0 rounded-4">
                             <div class="card-body text-center">

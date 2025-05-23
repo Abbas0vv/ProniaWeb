@@ -2,11 +2,11 @@
 
 namespace Pronia.Database.Repository;
 
-public class AppUserReposityory
+public class AppUserRepository
 {
     private ProniaDbContext _dbContext;
 
-    public AppUserReposityory(ProniaDbContext dbContext)
+    public AppUserRepository(ProniaDbContext dbContext)
     {
         _dbContext = dbContext;
     }

@@ -5,18 +5,9 @@ namespace Pronia.Database.Models
 {
     public class Product : BaseEntity
     {
-        [MinLength(3)]
         public string Name { get; set; }
-
-        [MinLength(5)]
         public string Description { get; set; }
         public decimal Price { get; set; }
-        public string? ImageUrl { get; set; }
-
-        [NotMapped]
-        public IFormFile? File { get; set; }
-
-        public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

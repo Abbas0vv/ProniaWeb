@@ -1,5 +1,6 @@
-﻿@using Pronia.Database.Models
-@model Product
+﻿@using Pronia.Database.ViewModels
+@model CreateProductViewModel
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +33,7 @@
                     <!-- Price -->
                     <div class="mb-3">
                         <label asp-for="Price" class="form-label text-success fw-bold">Price</label>
-                        <input type="number" class="form-control rounded-3" asp-for="Price" id="price" placeholder="$" />
+                        <input class="form-control rounded-3" asp-for="Price" id="price" placeholder="$" />
                         <span asp-for="Price" asp-validation-for="Price" class="text-danger"></span>
                     </div>
 
@@ -50,15 +51,6 @@
                         <input type="File" class="form-control rounded-3" asp-for="File" id="File"/>
                         <span asp-for="File" asp-validation-for="File" class="text-danger"></span>
 
-                    </div>
-
-                    <!-- Category -->
-                    <div class="mb-3">
-                        <label for="categoryId" class="form-label text-success fw-bold">Category</label>
-                        <select asp-for="CategoryId" class="form-select rounded-3" asp-items="@(new SelectList(ViewBag.Categories, "Id", "Name"))">
-                            <option disabled selected>-- Select Category --</option>
-                        </select>
-                        <span asp-validation-for="CategoryId" class="text-danger"></span>
                     </div>
 
                     <!-- Submit Button -->

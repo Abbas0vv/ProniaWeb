@@ -11,8 +11,6 @@ namespace Pronia.Database.Models
         [MinLength(5)]
         public string Description { get; set; }
         public string? Offer { get; set; }
-        public string? ImageUrl { get; set; }
-        [NotMapped]
-        public IFormFile? File { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

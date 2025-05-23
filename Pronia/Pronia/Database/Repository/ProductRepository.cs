@@ -1,51 +1,67 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Pronia.Database.Interfaces;
 using Pronia.Database.Models;
+using Pronia.Database.ViewModels;
+using Pronia.Helpers.Extentions;
 
-namespace Pronia.Database.Repository
+namespace Pronia.Database.Repository;
+
+public class ProductRepository : IProductRepository
 {
-    public class ProductRepository
+    private readonly ProniaDbContext _dbContext;
+    private readonly IWebHostEnvironment _environment;
+    private const string FOLDER_NAME = "Upload/Product";
+
+    public ProductRepository(ProniaDbContext dbContext, IWebHostEnvironment environment)
     {
-        private ProniaDbContext _dbContext;
+        _dbContext = dbContext;
+        _environment = environment;
+    }
 
-        public ProductRepository(ProniaDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
+    public List<Product> GetAll()
+    {
+        return _dbContext.Products.OrderBy(p => p.Id).ToList();
+    }
 
-        public List<Product> GetAll()
+    public async Task Insert(CreateProductViewModel model)
+    {
+        var product = new Product()
         {
-            return _dbContext.Products.OrderBy(p => p.Id).ToList();
-        }
+            Name = model.Name,
+            Description = model.Description,
+            Price = model.Price,
+            ImageUrl = model.File.CreateFile(_environment.WebRootPath, FOLDER_NAME)
+        };
 
-        public async Task Insert(Product product)
-        {
-            await _dbContext.Products.AddAsync(product);
-            await _dbContext.SaveChangesAsync();
-        }
+        await _dbContext.Products.AddAsync(product);
+        await _dbContext.SaveChangesAsync();
+    }
 
-        public Product GetById(int id)
-        {
-            return _dbContext.Products.FirstOrDefault(p => p.Id == id);
-        }
+    public async Task<Product> GetById(int? id)
+    {
+        return await _dbContext.Products.FirstOrDefaultAsync(p => p.Id == id);
+    }
 
-        public void RemoveById(int id)
-        {
-            try
-            {
-                var product = GetById(id);
-                _dbContext.Products.Remove(product);
-                _dbContext.SaveChanges();
-            }
-            catch (NullReferenceException e)
-            {
-                throw new Exception(e.Message);
-            }
-        }
+    public async Task RemoveById(int? id)
+    {
+        var product = await GetById(id);
+        FileExtention.RemoveFile(Path.Combine(_environment.WebRootPath, FOLDER_NAME, product.ImageUrl));
+        _dbContext.Products.Remove(product);
+        await _dbContext.SaveChangesAsync();
+    }
 
-        public void Update(Product product)
-        {
-            _dbContext.Products.Update(product);
-            _dbContext.SaveChanges();
-        }
+    public async Task Update(int? id, UpdateProductViewModel model)
+    {
+        var product = await GetById(id);
+
+        product.Name = model.Name;
+        product.Description = model.Description;
+        product.Price = model.Price;
+
+        if (model.File is not null)
+            product.ImageUrl = model.File.UpdateFile(_environment.WebRootPath, FOLDER_NAME, product.ImageUrl);
+
+        _dbContext.Products.Update(product);
+        await _dbContext.SaveChangesAsync();
     }
 }

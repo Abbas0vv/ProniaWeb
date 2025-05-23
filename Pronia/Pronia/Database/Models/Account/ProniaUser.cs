@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Pronia.Database.Models;
+namespace Pronia.Database.Models.Account;
 
-public class AppUser : IdentityUser
+public class ProniaUser : IdentityUser
 {
     public string Name { get; set; }
     public string Surname { get; set; }

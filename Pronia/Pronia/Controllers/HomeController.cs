@@ -8,15 +8,15 @@ namespace Pronia.Controllers
     {
         private readonly ProductRepository _productRepository;
         private readonly SlideBannerRepository _slideBannerRepository;
-        private readonly CategoryRepository _categoryRepository;
+        //private readonly CategoryRepository _categoryRepository;
         public HomeController(
             ProductRepository productRepository,
-            SlideBannerRepository slideBannerRepository,
-            CategoryRepository categoryRepository)
+            SlideBannerRepository slideBannerRepository
+            /*CategoryRepository categoryRepository*/)
         {
             _productRepository = productRepository;
             _slideBannerRepository = slideBannerRepository;
-            _categoryRepository = categoryRepository;
+            //_categoryRepository = categoryRepository;
         }
 
         [HttpGet]
@@ -26,7 +26,7 @@ namespace Pronia.Controllers
             {
                 Products = _productRepository.GetAll().OrderBy(p => p.Id).ToList(),
                 SlideBanners = _slideBannerRepository.GetAll().OrderBy(b => b.Id).ToList(),
-                Categories = _categoryRepository.GetAll().OrderBy(c => c.Id).ToList()
+                //Categories = _categoryRepository.GetAll().OrderBy(c => c.Id).ToList()
             };
 
             var result = View(model);

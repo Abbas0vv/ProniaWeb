@@ -1,5 +1,5 @@
-﻿@using Pronia.Database.Models
-@model Product
+﻿@using Pronia.Database.ViewModels
+@model UpdateProductViewModel
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,7 +45,7 @@
                     <!-- Image Selection -->
                     <div class="mb-3">
                         <label asp-for="File" class="form-label text-success fw-bold">Image</label>
-                        <input type="File" class="form-control rounded-3" asp-for="File" id="File" value="@Model.ImageUrl"/>
+                        <input type="File" class="form-control rounded-3" asp-for="File" id="File"/>
                         <span asp-for="File" asp-validation-for="File" class="text-danger"></span>
                     </div>
 

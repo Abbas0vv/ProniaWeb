@@ -1,4 +1,6 @@
-﻿@model Pronia.Database.Models.SlideBanner
+﻿@using Pronia.Database.ViewModels
+@model UpdateSlideBannerViewModel
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -24,27 +26,27 @@
                     <div class="mb-3">
                         <label asp-for="Title" class="form-label text-success fw-bold">Title</label>
                         <input asp-for="Title" class="form-control rounded-3" value="@Model.Title" />
-                        <span asp-for="Name" asp-validation-for="Title" class="text-danger"></span>
+                        <span asp-validation-for="Title" class="text-danger"></span>
                     </div>
 
                     <!-- Description -->
                     <div class="mb-3">
                         <label asp-for="Description" class="form-label text-success fw-bold">Description</label>
                         <input asp-for="Description" class="form-control rounded-3" value="@Model.Description" />
-                        <span asp-for="Description" asp-validation-for="Description" class="text-danger"></span>
+                        <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
 
                     <!-- Offer -->
                     <div class="mb-3">
                         <label asp-for="Offer" class="form-label text-success fw-bold">Offer</label>
                         <input asp-for="Offer" class="form-control rounded-3" value="@Model.Offer" />
-                        <span asp-for="Offer" asp-validation-for="Offer" class="text-danger"></span>
+                        <span asp-validation-for="Offer" class="text-danger"></span>
                     </div>
                     <!--Image-->
                     <div class="mb-3">
-                        <label asp-for="ImageUrl" class="form-label text-success fw-bold">Offer</label>
-                        <input asp-for="ImageUrl" class="form-control rounded-3" value="@Model.ImageUrl" />
-                        <span asp-for="ImageUrl" asp-validation-for="ImageUrl" class="text-danger"></span>
+                        <label asp-for="File" class="form-label text-success fw-bold">Offer</label>
+                        <input asp-for="File" class="form-control rounded-3"/>
+                        <span asp-validation-for="File" class="text-danger"></span>
                     </div>
                     <!-- Submit and Back Buttons -->
                     <button type="submit" class="btn btn-success btn-lg rounded-3 px-4">Create</button>
