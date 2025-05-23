@@ -1,5 +1,5 @@
 ﻿@using Pronia.ViewModels.Account
-@model RegisterViewModel
+@model LoginViewModel
 
 <div class="login-register-area section-space-y-axis-100">
     <div class="container">
@@ -8,23 +8,8 @@
             <div class="col-lg-8">
                 <form method="Post">
                     <div class="login-form">
-                        <h4 class="login-title">Register</h4>
+                        <h4 class="login-title">Login</h4>
                         <div class="row">
-                            <div class="col-md-6 col-12">
-                                <label asp-for="Name">First Name</label>
-                                <input asp-for="Name" placeholder="First Name" />
-                                <span asp-validation-for="Name" class="text-danger"></span>
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <label asp-for="Surname">Last Name</label>
-                                <input asp-for="Surname" placeholder="Last Name" />
-                                <span asp-validation-for="Surname" class="text-danger"></span>
-                            </div>
-                            <div class="col-md-12 col-12">
-                                <label>Username</label>
-                                <input type="text" asp-for="Username" placeholder="User Name" />
-                                <span asp-validation-for="Username" class="text-danger"></span>
-                            </div>
                             <div class="col-md-12">
                                 <label asp-for="Email">Email Address</label>
                                 <input type="email" asp-for="Email" placeholder="Email Address" />
@@ -35,17 +20,12 @@
                                 <input type="password" asp-for="Password" placeholder="Password" />
                                 <span asp-validation-for="Password" class="text-danger"></span>
                             </div>
-                            <div class="col-md-6">
-                                <label asp-for="ConfirmPassword">Confirm Password</label>
-                                <input type="password" asp-for="ConfirmPassword" placeholder="Confirm Password" />
-                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                            </div>
                             <div class="col-12">
                                 <div asp-validation-summary="All" class="text-danger"></div>
                             </div>
                             <div class="col-12">
                                 <button type="submit" class="btn btn-custom-size lg-size btn-pronia-primary">
-                                    Register
+                                    Login
                                 </button>
                             </div>
                         </div>

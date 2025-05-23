@@ -1,22 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Pronia.Database.Repository;
+using Pronia.Database.Interfaces;
 using Pronia.ViewModels.Home;
 
 namespace Pronia.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ProductRepository _productRepository;
-        private readonly SlideBannerRepository _slideBannerRepository;
-        //private readonly CategoryRepository _categoryRepository;
+        private readonly IProductRepository _productRepository;
+        private readonly ISlideBannerRepository _slideBannerRepository;
         public HomeController(
-            ProductRepository productRepository,
-            SlideBannerRepository slideBannerRepository
-            /*CategoryRepository categoryRepository*/)
+            IProductRepository productRepository,
+            ISlideBannerRepository slideBannerRepository)
         {
             _productRepository = productRepository;
             _slideBannerRepository = slideBannerRepository;
-            //_categoryRepository = categoryRepository;
         }
 
         [HttpGet]
@@ -26,7 +23,6 @@ namespace Pronia.Controllers
             {
                 Products = _productRepository.GetAll().OrderBy(p => p.Id).ToList(),
                 SlideBanners = _slideBannerRepository.GetAll().OrderBy(b => b.Id).ToList(),
-                //Categories = _categoryRepository.GetAll().OrderBy(c => c.Id).ToList()
             };
 
             var result = View(model);

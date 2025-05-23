@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Pronia.Database.Models;
+﻿using Pronia.Database.Models;
 using Pronia.Database.ViewModels;
 
 namespace Pronia.Database.Interfaces;

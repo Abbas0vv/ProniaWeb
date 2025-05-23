@@ -25,17 +25,17 @@ namespace Pronia
             builder.Services.AddRazorPages();
             builder.Services
                 .AddScoped<IProductRepository, ProductRepository>()
-                .AddScoped<ISlideBannerRepository, SlideBannerRepository>();
+                .AddScoped<ISlideBannerRepository, SlideBannerRepository>()
+                .AddScoped<IUserRepository, UserRepository>();
 
             builder.Services.Configure<IdentityOptions>(options =>
             {
                 // Password settings.
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
-                options.Password.RequireNonAlphanumeric = true;
-                options.Password.RequireUppercase = true;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 6;
-                options.Password.RequiredUniqueChars = 1;
 
                 // Lockout settings.
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
@@ -44,7 +44,7 @@ namespace Pronia
 
                 // User settings.
                 options.User.AllowedUserNameCharacters =
-                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789._";
                 options.User.RequireUniqueEmail = false;
             });
 

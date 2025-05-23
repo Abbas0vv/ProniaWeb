@@ -1,23 +1,16 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Pronia.Database;
-using Pronia.Database.Models.Account;
+using Pronia.Database.Interfaces;
+using Pronia.Database.Repository;
 using Pronia.ViewModels.Account;
 namespace Pronia.Controllers;
 public class AccountController : Controller
 {
+    private readonly IUserRepository _userRepository;
 
-    private readonly UserManager<ProniaUser> _userManager;
-    private readonly SignInManager<ProniaUser> _signInManager;
-    private readonly RoleManager<IdentityRole> _roleManager;
-
-    public AccountController(UserManager<ProniaUser> userManager,
-        SignInManager<ProniaUser> signInManager,
-        RoleManager<IdentityRole> roleManager)
+    public AccountController(IUserRepository userRepository)
     {
-        _userManager = userManager;
-        _signInManager = signInManager;
-        _roleManager = roleManager;
+        _userRepository = userRepository;
     }
 
     [HttpGet]
@@ -27,28 +20,37 @@ public class AccountController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Register(RegisterViewModel registerViewModel)
+    public async Task<IActionResult> Register(RegisterViewModel model)
     {
         if (!ModelState.IsValid) return View();
+        await _userRepository.Register(model);
+        return RedirectToAction("Index", "Home");
+    }
 
-        var user = new ProniaUser()
-        {
-            Name = registerViewModel.Name,
-            Surname = registerViewModel.Surname,
-            Email = registerViewModel.Email,
-            UserName = registerViewModel.Username
-        };
+    [HttpGet]
+    public async Task<IActionResult> Login()
+    {
+        return View();
+    }
+    [HttpPost]
+    public async Task<IActionResult> Login(LoginViewModel model)
+    {
+        if (!ModelState.IsValid) return View(model);
+        await _userRepository.Login(model);
+        return RedirectToAction("Index", "Home");
+    }
 
-        var result = await _userManager.CreateAsync(user, registerViewModel.Password);
-        if (!result.Succeeded)
-        {
-            foreach (var item in result.Errors)
-                ModelState.AddModelError("", item.Description);
+    [HttpGet]
+    public async Task<IActionResult> LogOut()
+    {
+        await _userRepository.LogOut();
+        return RedirectToAction("Index", "Home");
+    }
 
-            return View();
-        }
-
-        await _signInManager.SignInAsync(user, true);
+    [HttpGet]
+    public async Task<IActionResult> CreateRole()
+    {
+        await _userRepository.CreateRole();
         return RedirectToAction("Index", "Home");
     }
 }

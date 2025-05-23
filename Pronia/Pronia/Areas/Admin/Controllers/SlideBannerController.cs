@@ -4,9 +4,11 @@ using Pronia.Helpers.Extentions;
 using Pronia.Database.Models;
 using Pronia.Database.Interfaces;
 using Pronia.Database.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 namespace Pronia.Areas.Admin.Controllers;
 
 [Area("Admin")]
+[Authorize(Roles = "Admin")]
 public class SlideBannerController : Controller
 {
     private readonly ISlideBannerRepository _slideBannerRepository;
@@ -57,9 +59,9 @@ public class SlideBannerController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Update(int? id,UpdateSlideBannerViewModel model)
+    public async Task<IActionResult> Update(int? id, UpdateSlideBannerViewModel model)
     {
-        if(!ModelState.IsValid) return View(model);
+        if (!ModelState.IsValid) return View(model);
         await _slideBannerRepository.Update(id, model);
         return RedirectToAction(nameof(Index));
     }

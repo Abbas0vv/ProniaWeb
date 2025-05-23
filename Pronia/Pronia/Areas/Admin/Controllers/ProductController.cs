@@ -1,15 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Pronia.Database.Interfaces;
-using Pronia.Database.Models;
-using Pronia.Database.Repository;
 using Pronia.Database.ViewModels;
-using Pronia.Helpers.Extentions;
 
 namespace Pronia.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Admin")]
     public class ProductController : Controller
     {
         private readonly IProductRepository _productRepository;
